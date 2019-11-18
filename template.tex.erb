@@ -1,0 +1,110 @@
+\documentclass[a4paper,backaddress=true]{scrlttr2}
+\usepackage[utf8x]{inputenc}
+\usepackage{color,calc,ngerman,mathptmx}
+\usepackage{eurosym}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{tabularx}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\date{<%= @date.strftime("%d. %B %Y") %>}
+% DIN Ausrichtung am Adressfeld statt typographisch korrekte Einrückung
+\makeatletter
+\@setplength{refwidth}{\textwidth}
+\@setplength{refhpos}{\useplength{toaddrhpos}}
+\setlength{\oddsidemargin}{\useplength{toaddrhpos}-1in}
+\makeatother
+
+\setkomavar{subject}{Invoice No. <%= @invoice_number %>}
+\setkomavar{fromname}{Your Name}
+\setkomavar{fromaddress}{Street 123\\12345 Megatown\\Deutschland}
+\setkomavar{fromphone}{+49 (0)1234 555 666 77 }
+\newcommand\fromwebsite{https://example.de} % is not a KOMA var
+
+\setkomavar{frombank}{Target Bank\\
+    IBAN: DE24 11111111 2222222222\\
+    BIC: ABCDEF44}
+\setkomavar{fromemail}{you@email.de}
+\setkomavar{signature}{\usekomavar{fromname}}
+\newcommand\ustid{USt-ID: DE123456789}
+\setkomavar{place}{Megatown}
+
+\firsthead{\null\hfill
+   \parbox[t][\headheight][t]{5cm}{%
+       \raggedright
+       \color[gray]{.5}%
+       \usekomavar{fromname}\\
+       \usekomavar{fromaddress}\\[\baselineskip]
+       \ustid
+   }%
+}
+
+\firstfoot{%
+    \scriptsize{%
+        \parbox{\useplength{firstfootwidth}
+    }{%
+        \rule{170mm}{0.3pt}
+        \color[gray]{.5}%
+        \begin{tabularx}{\textwidth}{X X X}
+            \begin{tabular}{ll}
+                \usekomavar{fromname}\\
+                \usekomavar{fromaddress}\\
+            \end{tabular} &
+            \begin{tabular}{cc}
+                E-Mail: \usekomavar{fromemail}\\
+                Tel: \usekomavar{fromphone}\\
+                Web: \fromwebsite\\
+            \end{tabular} &
+            \begin{tabular}{rr}
+                \usekomavar{frombank}\\
+            \end{tabular}
+        \end{tabularx}
+    }}
+}
+
+\nextfoot{%
+    \parbox{\useplength{firstfootwidth}}{
+        \begin{tabular}{ll}
+            \usekomavar{fromname}
+        \end{tabular}\hfill
+        \begin{tabular}{cc}
+            \today
+        \end{tabular}\hfill
+        \begin{tabular}{rr}
+            \thepage
+        \end{tabular}
+    }
+}
+
+
+%%
+%% Document
+%%
+
+\begin{document}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5\baselineskip}
+
+\begin{letter}{Bright Market, LLC\\dba: FastSpring\\8 E. Figueroa St \#240\\Santa Barbara, CA 9310}
+\opening{}
+
+\vspace{2\parskip}
+
+\begin{tabular}{rp{10cm}rr}
+\toprule
+Qty & Description & Price & Amount \\ \midrule
+1   & Digital Goods, software and ebooks, \newline products sold by distributor, FastSpring & <%= @amount %> & <%= @amount %> \\
+\bottomrule
+\multicolumn{3}{r}{Subtotal:} & <%= @amount %> \\
+\multicolumn{3}{r}{Tax:} & -- \\
+\multicolumn{3}{r}{Total:} & <%= @amount %> \\
+\end{tabular}
+
+\vspace{2\parskip}
+
+\closing{Thank you for your business}
+
+\end{letter}
+\end{document}
