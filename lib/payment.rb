@@ -4,6 +4,10 @@ Payment = Struct.new(:date, :amount) do
   def is_year?(year)
     date.year.to_i == year.to_i
   end
+
+  def is_month?(month)
+    date.month.to_i == month.to_i
+  end
 end
 
 def payment_from_options(options)
