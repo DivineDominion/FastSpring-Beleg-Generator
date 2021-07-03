@@ -8,14 +8,14 @@ def parse_options
     :verbose => false
   }
   parser = OptionParser.new do |opts|
-    opts.banner = "Usage: #{$0} [options]"
+    opts.banner = "Usage: #{$0} -i <invoice_no> -d <date> -a <amount> [options]"
+
+    opts.separator ""
+    opts.separator "Required parameters:"
 
     opts.on("-i", "--invoice INVOICE", :REQUIRED, String, "Invoice number or other identifier") do |inv|
       args[:invoice] = inv
     end
-
-    opts.separator ""
-    opts.separator "Providing a data point:"
 
     opts.on("-d", "--date DATE", :REQUIRED, Date, "Date of the invoice") do |date|
       args[:date] = date
@@ -26,13 +26,13 @@ def parse_options
     end
 
     opts.separator ""
-    opts.separator "Options"
+    opts.separator "Optional parameters:"
 
-    opts.on("--output [OUTPUT]", String, "Output PDF file name") do |name|
+    opts.on("-o", "--output [OUTPUT]", String, "Output PDF file name") do |name|
       args[:output_filename] = name
     end
 
-    opts.on("--template [TEMPLATE]", String, "LaTeX ERb template path") do |path|
+    opts.on("-t", "--template [TEMPLATE]", String, "LaTeX ERb template path (default: template.tex.erb)") do |path|
       args[:template_path] = path
     end
 
