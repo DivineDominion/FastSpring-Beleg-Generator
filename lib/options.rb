@@ -8,7 +8,7 @@ def parse_options
     :verbose => false
   }
   parser = OptionParser.new do |opts|
-    opts.banner = "Usage: #{__FILE__} [options]"
+    opts.banner = "Usage: #{$0} [options]"
 
     opts.on("-i", "--invoice INVOICE", :REQUIRED, String, "Invoice number or other identifier") do |inv|
       args[:invoice] = inv
