@@ -22,6 +22,17 @@ def generate_report(payment)
   system %Q{./report.rb --output "#{filename}" --invoice "#{invoice_no}" --date "#{date}" --amount "#{amount}"}
 end
 
+desc "Create reports from `file' for `month` of `year'"
+task :month, [:file, :year, :month] do |t, args|
+  file, year, month = [args[:file], args[:year].to_i, args[:month].to_i]
+  payments = payments_from_csv(file)
+
+  puts "Creating report for #{year}-#{month} from #{file}..."
+  payments
+    .filter { |p| p.is_year?(year) && p.is_month?(month) }
+    .each { |p| generate_report(p) }
+end
+
 desc "Create reports from `file' for a quarter (1--4) of `year'"
 task :quarter, [:file, :year, :quarter] do |t, args|
   file, year, quarter = [args[:file], args[:year].to_i, args[:quarter].to_i]
