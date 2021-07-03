@@ -18,6 +18,8 @@ To generate a single PDF:
 
     ./report.rb --date 2021-07-03 --amount "\$200,45" --output "invoice.pdf"
 
+![Sample Output](/assets/invoice-sample.png)
+
 For a list of options, see the help:
 
     ./report.rb -h
