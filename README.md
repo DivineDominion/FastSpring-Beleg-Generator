@@ -1,5 +1,11 @@
 # FastSpring Invoice Generator
 
+## Seller Accounting and Taxes
+
+Produces PDFs using LaTeX that you can use for your bookkeeping to record your sales as wholesale sales. Especially for German developers who keep a record of each payment.
+
+Based on [a template by FastSpring](https://fastspring.com/docs/about-vat-and-sales-tax/).
+
 ## Installation
 
 1. You need LaTeX installed on your system for PDF creation.
